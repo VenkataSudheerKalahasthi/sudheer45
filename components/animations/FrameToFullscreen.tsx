@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useLayoutEffect, useRef } from "react";
+import Image from "next/image";
 import { useScroll } from "framer-motion";
 import { gsap, ScrollTrigger } from "@/lib/gsap";
 import { ContainerScrollContext } from "@/components/ui/container-scroll-animation";
@@ -16,6 +17,7 @@ export const FrameToFullscreen: React.FC<Props> = ({ titleComponent, children })
   const frameRef = useRef<HTMLDivElement>(null);
   const innerRef = useRef<HTMLDivElement>(null);
   const titleRef = useRef<HTMLDivElement>(null);
+  const bgRef = useRef<HTMLDivElement>(null);
 
   const { scrollYProgress } = useScroll({
     target: sectionRef,
@@ -101,6 +103,19 @@ export const FrameToFullscreen: React.FC<Props> = ({ titleComponent, children })
           0.5
         );
 
+        if (bgRef.current) {
+          tl.to(
+            bgRef.current,
+            {
+              x: 60,
+              opacity: 0,
+              duration: 0.25,
+              ease: "sine.inOut",
+            },
+            0.5
+          );
+        }
+
         // Phase 3 (0.7 → 1.0): Frame flattens to 1.0 scale and slides down to y=0 (fullscreen)
         tl.to(
           frameRef.current,
@@ -158,17 +173,42 @@ export const FrameToFullscreen: React.FC<Props> = ({ titleComponent, children })
       >
         <div
           ref={stageRef}
-          className="relative w-full h-screen overflow-hidden flex items-end justify-center"
+          className="relative w-full h-screen overflow-hidden flex items-end justify-center bg-[#080808]"
           style={{
             perspective: "1600px",
             willChange: "transform",
             transformStyle: "preserve-3d",
           }}
         >
+          {/* Hero Portrait in Right Corner */}
+          <div
+            ref={bgRef}
+            className="absolute right-0 bottom-0 pointer-events-none select-none z-0 flex items-end justify-end overflow-hidden h-[85vh] md:h-[92vh] w-[45vw] max-w-[580px] min-w-[300px]"
+            aria-hidden="true"
+          >
+            {/* Subtle atmospheric back-glow to highlight the silhouette against the dark background */}
+            <div
+              className="absolute right-[5%] bottom-[15%] w-[380px] h-[500px] bg-gradient-to-t from-cyan-500/10 via-amber-500/5 to-transparent blur-[120px] rounded-full pointer-events-none"
+            />
+            
+            <div className="relative w-full h-full flex items-end justify-end">
+              <Image
+                src="/sudheer-hero.png"
+                alt="Sudheer Kalahasthi"
+                fill
+                priority
+                sizes="(max-width: 768px) 70vw, 45vw"
+                className="object-contain object-right-bottom select-none pointer-events-none drop-shadow-[0_15px_40px_rgba(0,0,0,0.85)]"
+              />
+              {/* Soft bottom edge fade so it melts seamlessly into the dark section */}
+              <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-[#080808] to-transparent pointer-events-none" />
+            </div>
+          </div>
+
           {titleComponent && (
             <div
               ref={titleRef}
-              className="absolute top-[8vh] left-1/2 -translate-x-1/2 z-10 w-full max-w-5xl px-4 text-center"
+              className="absolute top-[8vh] left-1/2 -translate-x-1/2 z-20 w-full max-w-5xl px-4 text-center pointer-events-auto"
             >
               {titleComponent}
             </div>
@@ -176,7 +216,7 @@ export const FrameToFullscreen: React.FC<Props> = ({ titleComponent, children })
 
           <div
             ref={frameRef}
-            className="absolute left-0 bottom-0 bg-[#222222] border-[#6C6C6C] shadow-2xl"
+            className="absolute left-0 bottom-0 z-10 bg-[#222222] border-[#6C6C6C] shadow-2xl"
             style={{
               width: "100vw",
               height: "100vh",

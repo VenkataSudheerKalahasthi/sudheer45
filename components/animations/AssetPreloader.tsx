@@ -9,6 +9,9 @@ import { useEffect } from "react";
  * fills in the same order the user will encounter the assets.
  */
 const RAW_IMAGE_PATHS = [
+  // 1st page Hero Portrait
+  "/sudheer-hero.png",
+
   // Hero Parallax assets
   "/trustpay-hero.jpg",
   "/college-dsa-hero.png",
@@ -47,6 +50,7 @@ const RAW_IMAGE_PATHS = [
  * optimizer transform. We pick two widths that cover most viewports.
  */
 const NEXT_IMAGE_PATHS = [
+  "/sudheer-hero.png",
   "/trustpay-hero.jpg",
   "/college-dsa-hero.png",
   "/codeorbit.png",

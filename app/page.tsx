@@ -21,11 +21,11 @@ export default function Home() {
     <main className="relative">
       <FrameToFullscreen
         titleComponent={
-          <h1 className="text-4xl md:text-5xl font-semibold text-white mt-[4vh]">
+          <h1 className="text-4xl md:text-5xl font-semibold text-white mt-[4vh] drop-shadow-[0_4px_24px_rgba(0,0,0,0.9)]">
           Engineering ideas into <br />
             <ScrollFloat
               stagger={0.8}
-              textClassName="text-white font-bold tracking-tight inline-block"
+              textClassName="text-white font-bold tracking-tight inline-block drop-shadow-[0_6px_32px_rgba(0,0,0,0.95)]"
               style={{
                 fontSize: "clamp(4.5rem, 10vw, 9.5rem)",
                 marginTop: "3rem"
