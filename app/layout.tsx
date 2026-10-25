@@ -22,13 +22,13 @@ const dmSans = DM_Sans({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://rohithpranov.vercel.app"),
-  title: "Rohith Pranov — Creative Developer",
+  metadataBase: new URL("https://sudheer45.vercel.app"),
+  title: "Sudheer Kalahasthi — Creative Developer",
   description:
-    "Portfolio of Rohith Pranov — a creative developer crafting cinematic digital experiences with Three.js, GSAP, and Next.js.",
-  keywords: ["creative developer", "portfolio", "frontend", "Three.js", "GSAP", "Next.js"],
+    "Portfolio of Sudheer Kalahasthi — a creative developer crafting cinematic digital experiences with Three.js, React.js, and Tailwind CSS.",
+  keywords: ["creative developer", "portfolio", "frontend", "Three.js", "React.js", "Tailwind CSS"],
   openGraph: {
-    title: "Rohith Pranov — Creative Developer",
+    title: "Sudheer Kalahasthi — Creative Developer",
     description: "Crafting digital experiences that move people.",
     type: "website",
   },
