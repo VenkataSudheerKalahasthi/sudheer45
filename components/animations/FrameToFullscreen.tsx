@@ -67,8 +67,8 @@ export const FrameToFullscreen: React.FC<Props> = ({ titleComponent, children })
           scrollTrigger: {
             trigger: sectionRef.current,
             start: "top top",
-            end: "+=240%",
-            scrub: 1.2, // Silk smooth scrub damping
+            end: "+=85%",
+            scrub: 0.5, // Responds quickly within 2-3 mouse wheel scrolls
             pin: stageRef.current,
             pinSpacing: true,
             anticipatePin: 1,
@@ -154,7 +154,7 @@ export const FrameToFullscreen: React.FC<Props> = ({ titleComponent, children })
       <section
         ref={sectionRef}
         className="relative w-full"
-        style={{ height: "340vh" }}
+        style={{ height: "185vh" }}
       >
         <div
           ref={stageRef}
