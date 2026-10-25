@@ -22,7 +22,7 @@ export default function Home() {
       <FrameToFullscreen
         titleComponent={
           <h1 className="text-4xl md:text-5xl font-semibold text-white mt-[4vh]">
-            Crafting digital experiences that <br />
+          Engineering ideas into <br />
             <ScrollFloat
               stagger={0.8}
               textClassName="text-white font-bold tracking-tight inline-block"
@@ -32,7 +32,7 @@ export default function Home() {
               }}
               scrollRange={[0.05, 0.48]}
             >
-              Come Alive
+            Experiences
             </ScrollFloat>
           </h1>
         }
