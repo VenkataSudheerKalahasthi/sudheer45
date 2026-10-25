@@ -9,39 +9,21 @@ export function SplineSceneBasic() {
   const cardRef = useRef<HTMLDivElement>(null);
   const [spotlightArmed, setSpotlightArmed] = useState(false);
   const [loadScene, setLoadScene] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    // 1. Warm up the 3D runtime eagerly in the background on first scroll or touch
-    const startWarmUp = () => {
-      setLoadScene(true);
-      cleanupListeners();
-    };
-
-    const cleanupListeners = () => {
-      if (typeof window !== "undefined") {
-        window.removeEventListener("scroll", startWarmUp);
-        window.removeEventListener("pointerdown", startWarmUp);
-        window.removeEventListener("touchstart", startWarmUp);
-      }
-    };
-
     if (typeof window !== "undefined") {
-      if (window.scrollY > 10) {
-        setLoadScene(true);
-      } else {
-        window.addEventListener("scroll", startWarmUp, { passive: true });
-        window.addEventListener("pointerdown", startWarmUp, { passive: true });
-        window.addEventListener("touchstart", startWarmUp, { passive: true });
-      }
+      setIsMobile(window.innerWidth < 768);
     }
 
-    // 2. IntersectionObserver for Spotlight + fallback scene loading
     if (!cardRef.current) return;
     const el = cardRef.current;
+
+    // Load scene only when approaching viewport to keep hero & initial scroll buttery smooth
     const io = new IntersectionObserver(
       (entries) => {
         for (const entry of entries) {
-          if (entry.isIntersecting && entry.intersectionRatio >= 0.15) {
+          if (entry.isIntersecting) {
             setSpotlightArmed(true);
             setLoadScene(true);
             io.disconnect();
@@ -49,13 +31,12 @@ export function SplineSceneBasic() {
           }
         }
       },
-      { threshold: [0, 0.15, 0.3, 0.5] }
+      { rootMargin: "300px 0px" }
     );
     io.observe(el);
 
     return () => {
       io.disconnect();
-      cleanupListeners();
     };
   }, []);
 
@@ -69,27 +50,30 @@ export function SplineSceneBasic() {
         />
       )}
 
-      <div className="flex h-full">
-        <div className="flex-1 py-16 relative z-10 flex flex-col justify-center items-end pr-12 pointer-events-none">
+      <div className="flex flex-col md:flex-row h-full">
+        <div className="flex-1 py-12 md:py-16 relative z-10 flex flex-col justify-center items-center md:items-end px-6 md:pr-12 pointer-events-none text-center md:text-right">
           <div className="max-w-lg w-full">
-          <h1 className="text-5xl md:text-7xl font-bold bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-400">
-            Built Different.
-          </h1>
-          <p className="mt-6 text-lg text-neutral-300">
-            Welcome. You're not here by accident.
-I'm Sudheer Kalahasthi a developer who thinks in systems,
-designs with intent, and ships things that matter.
-Scroll down. See for yourself.
-          </p>
+            <h1 className="text-4xl md:text-7xl font-bold bg-clip-text text-transparent bg-gradient-to-b from-neutral-50 to-neutral-400">
+              Built Different.
+            </h1>
+            <p className="mt-4 md:mt-6 text-base md:text-lg text-neutral-300">
+              Welcome. You&apos;re not here by accident.
+              I&apos;m Sudheer Kalahasthi a developer who thinks in systems,
+              designs with intent, and ships things that matter.
+              Scroll down. See for yourself.
+            </p>
           </div>
         </div>
 
-        <div className="flex-1 relative pointer-events-auto">
-          {loadScene && (
+        <div className="flex-1 relative pointer-events-auto min-h-[300px] flex items-center justify-center">
+          {loadScene && !isMobile && (
             <SplineScene
               scene="https://prod.spline.design/kZDDjO5HuC9GJUM2/scene.splinecode"
               className="w-full h-full"
             />
+          )}
+          {isMobile && (
+            <div className="relative w-48 h-48 rounded-full bg-gradient-to-tr from-purple-500/20 to-amber-500/20 blur-3xl pointer-events-none" />
           )}
         </div>
       </div>

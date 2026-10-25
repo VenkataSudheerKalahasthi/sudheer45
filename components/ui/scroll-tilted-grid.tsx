@@ -192,7 +192,10 @@ function Tile({
 
   const innerSY = useTransform(p, [0, 0.5, 1], [1.8, 1, 1.8], { ease: focusEase });
 
-  const filter = useMotionTemplate`blur(${blur}px) brightness(${bright}) contrast(${contrast})`;
+  const filter =
+    maxBlur > 0
+      ? useMotionTemplate`blur(${blur}px) brightness(${bright}) contrast(${contrast})`
+      : useMotionTemplate`brightness(${bright}) contrast(${contrast})`;
 
   const topAlign = isContain(src);
   const bgPosition = topAlign ? "center top" : "center";
@@ -269,7 +272,7 @@ export function ScrollTiltedGrid({
   gap = 10,
   perspective = 900,
   maxTilt = 70,
-  maxBlur = 8,
+  maxBlur = 0,
   rounded = "0.375rem",
   className,
 }: ScrollTiltedGridProps = {}) {

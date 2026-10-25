@@ -29,7 +29,7 @@ export const HeroParallax = ({
     offset: ["start start", "end start"],
   });
 
-  const springConfig = { stiffness: 300, damping: 30, bounce: 100 };
+  const springConfig = { stiffness: 200, damping: 28, mass: 0.8 };
 
   const translateX = useSpring(
     useTransform(scrollYProgress, [0, 1], [0, 1000]),
@@ -220,6 +220,7 @@ export const ProductCard = ({
     <motion.div
       style={{
         x: translate,
+        willChange: "transform",
         boxShadow:
           "0 30px 80px -30px rgba(0,0,0,0.7), 0 0 0 1px rgba(167,139,250,0.10), inset 0 1px 0 rgba(255,255,255,0.06)",
       }}

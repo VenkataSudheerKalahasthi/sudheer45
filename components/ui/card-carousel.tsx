@@ -130,7 +130,7 @@ export const CardCarousel: React.FC<CarouselProps> = ({
             }}
           >
             <h3 style={{ fontSize: "2.25rem", opacity: 0.85, fontWeight: 700, letterSpacing: "-0.02em" }}>
-              Frontend Work
+              Fullstack Work
             </h3>
             <p style={{ marginTop: "0.5rem", opacity: 0.7 }}>
               Where logic meets creativity,

@@ -14,12 +14,13 @@ export function getLenis() {
 export function useLenis() {
   useEffect(() => {
     const lenis = new Lenis({
-      duration: 1.0,
+      duration: 1.1,
       easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
       orientation: "vertical",
       smoothWheel: true,
-      wheelMultiplier: 1,
-      touchMultiplier: 2,
+      wheelMultiplier: 0.9,
+      syncTouch: false,
+      touchMultiplier: 1,
     });
 
     lenisInstance = lenis;
@@ -30,7 +31,8 @@ export function useLenis() {
     };
 
     gsap.ticker.add(tick);
-    gsap.ticker.lagSmoothing(0);
+    // lagSmoothing(500, 33) bridges frame drops smoothly instead of stuttering
+    gsap.ticker.lagSmoothing(500, 33);
 
     return () => {
       gsap.ticker.remove(tick);
